@@ -16,7 +16,9 @@
 		"express-session": "^1.17.2",
 		"http-errors": "^1.7.2",
 		"mongoose": "^5.13.2",
-		"morgan": "^1.10.0"
+		"morgan": "^1.10.0",
+		"nodemon": "^2.0.12",
+		"start-dev": "^1.0.0"
 	},
 	"devDependencies": {
 		"eslint": "^7.30.0",
