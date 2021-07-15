@@ -8,10 +8,10 @@ const checkIfLoggedIn = (req, res, next) => {
 	}
 };
 
-const checkUsernameAndPasswordNotEmpty = (req, res, next) => {
-	const { username, password } = req.body;
+const checknameAndPasswordNotEmpty = (req, res, next) => {
+	const { name, password } = req.body;
 
-	if (username !== '' && password !== '') {
+	if (name !== '' && password !== '') {
 		res.locals.auth = req.body;
 		next();
 	} else {
@@ -21,5 +21,5 @@ const checkUsernameAndPasswordNotEmpty = (req, res, next) => {
 
 module.exports = {
 	checkIfLoggedIn,
-	checkUsernameAndPasswordNotEmpty,
+	checknameAndPasswordNotEmpty,
 };
