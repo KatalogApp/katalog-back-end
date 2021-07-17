@@ -6,20 +6,19 @@ const noteSchema = new Schema(
 	{
 		content: {
 			type: String,
-			required: true,
+			required: [true, 'description is required'],
 		},
-		hashedPassword: {
-			type: String,
-			required: true,
-		},
+		date: {
+		type: Date,
+		default: Date.now(),
 	},
-	{
+	
 		timestamps: {
 			createdAt: 'created_at',
 			updatedAt: 'updated_at',
 		},
-	}
-);
+	
+});
 
 const Note = mongoose.model('Note', noteSchema);
 

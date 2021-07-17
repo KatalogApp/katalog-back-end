@@ -18,6 +18,7 @@ router.get('/user-profile', (req, res, next) => {
 	}
 });
 
+//signup
 router.post('/signup', checknameAndPasswordNotEmpty, async (req, res, next) => {
 	const { name, email, password } = res.locals.auth;
 	try {
@@ -37,6 +38,7 @@ router.post('/signup', checknameAndPasswordNotEmpty, async (req, res, next) => {
 	}
 });
 
+//login
 router.post('/login', checknameAndPasswordNotEmpty, async (req, res, next) => {
 	const { name, password } = res.locals.auth;
 	try {
@@ -54,6 +56,30 @@ router.post('/login', checknameAndPasswordNotEmpty, async (req, res, next) => {
 	}
 });
 
+
+//update
+router.post('/user-profile/edit', async (req, res) => {
+	
+	const userId = req.session.currentUser._id;
+  const { name, email } = req.body;
+	try {
+		const newUser = await User.findByIdAndUpdate(
+			userId, 
+			{ name, email }, 
+			{ new: true }
+			);
+
+		if (!newUser) {
+			console.log('No user updated');
+		}
+		res.status(200).json(newUser);
+	} catch (error) {
+		console.log(error);
+	}
+});
+
+
+//logout
 router.post('/logout', (req, res, next) => {
 	req.session.destroy(err => {
 		if (err) {
@@ -64,4 +90,16 @@ router.post('/logout', (req, res, next) => {
 	});
 });
 
+
+//delete 
+router.delete('/user-profile/delete', async (req, res) => {
+  const userId = req.session.currentUser._id; 
+	try {
+	const deletedUser = await  User.findByIdAndDelete(userId);
+	req.session.destroy();
+    res.status(200).json(deletedUser);
+		} catch (error) {
+		console.log(error, 'error occurred when deleting user');
+	}
+});
 module.exports = router;

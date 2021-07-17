@@ -67,4 +67,5 @@ router.delete('/user-profile/:id/delete', async (req, res) => {
 	}
 });
 
+
 module.exports = router;
