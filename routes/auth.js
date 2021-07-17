@@ -10,7 +10,7 @@ const bcryptSalt = 10;
 
 const router = express.Router();
 
-router.get('/whoami', (req, res, next) => {
+router.get('/user-profile', (req, res, next) => {
 	if (req.session.currentUser) {
 		res.status(200).json(req.session.currentUser);
 	} else {

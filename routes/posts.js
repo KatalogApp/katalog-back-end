@@ -13,6 +13,7 @@ const fileUploader = require('../configs/cloudinary.config');
 // RENDER CREATE A POST PAGE
 router.get('/user-profile/create', (req, res) => {
 	res.status(200).json({ create: 'a post here' });
+	//console.log("hello")
 });
 
 // CREATE NEW POST
