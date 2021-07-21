@@ -13,7 +13,7 @@ const router = new Router();
 
 // CREATE NEW POST
 
-router.post('/user-profile/create', async (req, res) => {
+router.post('/user-profile/post/create', async (req, res) => {
 	// router.post('/user-profile/create', fileUploader.single('image'), async (req, res) => {
 	const { title, date, description, keywords, theme, creator } = req.body;
 	// eslint-disable-next-line no-underscore-dangle
@@ -36,7 +36,7 @@ router.post('/user-profile/create', async (req, res) => {
 
 // POST update post
 
-router.post('/user-profile/posts/:id/edit', async (req, res) => {
+router.post('/user-profile/post/:id/edit', async (req, res) => {
 	// const postId = req.session.currentUser.posts._id;
 	const postId = req.params.id;
 	const { title, date, description, keywords, theme, creator } = req.body;
@@ -57,7 +57,7 @@ router.post('/user-profile/posts/:id/edit', async (req, res) => {
 
 // Delete post
 
-router.delete('/user-profile/:id/delete', async (req, res) => {
+router.delete('/user-profile/post/:id/delete', async (req, res) => {
 	const postId = req.params.id;
 	try {
 		const deletedPost = await Post.findByIdAndDelete(postId);
