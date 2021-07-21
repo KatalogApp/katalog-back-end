@@ -6,7 +6,7 @@ const Note = require('../models/Note');
 const router = new Router();
 
 
-// CREATE NEW POST
+// Create New Note
 
 router.post('/user-profile/note/create', async (req, res) => {
 	// router.post('/user-profile/create', fileUploader.single('image'), async (req, res) => {
@@ -28,34 +28,34 @@ router.post('/user-profile/note/create', async (req, res) => {
 	}
 });
 
-// POST update post
+// POST update Note
 
-router.post('/user-profile/:id/edit', async (req, res) => {
+router.post('/user-profile/note/:id/edit', async (req, res) => {
 	// const postId = req.session.currentUser.posts._id;
-	const postId = req.params.id;
-	const { title, date, description, keywords, theme, creator } = req.body;
+	const noteId = req.params.id;
+	const { title,content } = req.body;
 	try {
-		const newPost = await Post.findByIdAndUpdate(
-			postId,
-			{ title, date, description, keywords, theme, creator },
+		const newNote = await Note.findByIdAndUpdate(
+			noteId,
+			{ title, content },
 			{ new: true }
 		);
-		if (!newPost) {
-			console.log('No post created');
+		if (!newNote) {
+			console.log('No post created' + noteId);
 		}
-		res.status(200).json(newPost);
+		res.status(200).json(newNote);
 	} catch (error) {
 		console.log(error);
 	}
 });
 
-// Delete post
+// Delete Note
 
-router.delete('/user-profile/:id/delete', async (req, res) => {
-	const postId = req.params.id;
+router.delete('/user-profile/note/:id/delete', async (req, res) => {
+	const noteId = req.params.id;
 	try {
-		const deletedPost = await Post.findByIdAndDelete(postId);
-		res.status(200).json(deletedPost);
+		const deletedNote = await Note.findByIdAndDelete(noteId);
+		res.status(200).json(deletedNote);
 	} catch (error) {
 		console.log(error, 'error occurred when deleting post');
 	}
