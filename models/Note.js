@@ -21,11 +21,6 @@ const noteSchema = new Schema(
 		default: Date.now(),
 	},
 	
-		timestamps: {
-			createdAt: 'created_at',
-			updatedAt: 'updated_at',
-		},
-	
 });
 
 const Note = mongoose.model('Note', noteSchema);

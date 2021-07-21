@@ -1,6 +1,8 @@
 const { Router } = require('express');
 const Post = require('../models/Post');
 const User = require('../models/User');
+const Note = require('../models/Note');
+
 const router = new Router();
 
 
@@ -8,20 +10,20 @@ const router = new Router();
 
 router.post('/user-profile/note/create', async (req, res) => {
 	// router.post('/user-profile/create', fileUploader.single('image'), async (req, res) => {
-	const { title, date, description, keywords, theme, creator } = req.body;
+	const { title, content} = req.body;
 	// eslint-disable-next-line no-underscore-dangle
 	const userId = req.session.currentUser._id;
 	// const file = req.file.path;
 	try {
-		const newPost = await Post.create({ userId, title, date, description, keywords, theme, creator });
+		const newNote = await Note.create({ title, content});
 		const currentUser = await User.findById(userId);
 		// eslint-disable-next-line no-underscore-dangle
-		currentUser.posts.push(newPost._id);
+		currentUser.notes.push(newNote._id);
 		currentUser.save();
 	} catch (error) {
 		console.log(error);
 	} finally {
-		const updatedUser = await User.findById(userId).populate({ path: 'posts', model: Post });
+		const updatedUser = await User.findById(userId).populate({ path: 'notes', model: Note });
 		req.session.currentUser = updatedUser;
 		res.status(201).json({ user: updatedUser });
 	}
