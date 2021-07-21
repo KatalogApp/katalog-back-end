@@ -10,16 +10,15 @@ const router = new Router();
 
 router.post('/user-profile/note/create', async (req, res) => {
 	// router.post('/user-profile/create', fileUploader.single('image'), async (req, res) => {
-	const { title, content} = req.body;
 	// eslint-disable-next-line no-underscore-dangle
 	const userId = req.session.currentUser._id;
 	// const file = req.file.path;
 	try {
-		const newNote = await Note.create({ title, content});
+		const newNote = await Note.create(req.body);
 		const currentUser = await User.findById(userId);
 		// eslint-disable-next-line no-underscore-dangle
-		currentUser.notes.push(newNote._id);
-		currentUser.save();
+    currentUser.notes.push(newNote._id);
+		await currentUser.save();
 	} catch (error) {
 		console.log(error);
 	} finally {

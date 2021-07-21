@@ -24,7 +24,7 @@ router.post('/user-profile/create', async (req, res) => {
 		const currentUser = await User.findById(userId);
 		// eslint-disable-next-line no-underscore-dangle
 		currentUser.posts.push(newPost._id);
-		currentUser.save();
+		await currentUser.save();
 	} catch (error) {
 		console.log(error);
 	} finally {
