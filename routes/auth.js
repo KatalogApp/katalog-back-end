@@ -22,7 +22,7 @@ router.get('/user-profile', (req, res, next) => {
 router.post('/signup', checknameAndPasswordNotEmpty, async (req, res, next) => {
 	const { name, email, password } = res.locals.auth;
 	try {
-		const user = await User.findOne({ name });
+		const user = await User.findOne({ email });
 		if (user) {
 			return next(createError(422));
 		}
@@ -40,9 +40,9 @@ router.post('/signup', checknameAndPasswordNotEmpty, async (req, res, next) => {
 
 //login
 router.post('/login', checknameAndPasswordNotEmpty, async (req, res, next) => {
-	const { name, password } = res.locals.auth;
+	const { email, password } = res.locals.auth;
 	try {
-		const user = await User.findOne({ name });
+		const user = await User.findOne({ email });
 		if (!user) {
 			return next(createError(404));
 		}
