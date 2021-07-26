@@ -79,13 +79,18 @@ router.post('/user-profile/post/:id/edit', async (req, res) => {
 
 router.delete('/user-profile/post/:id/delete', async (req, res) => {
 	const postId = req.params.id;
+	const userId = req.session.currentUser._id;
 	try {
 		const deletedPost = await Post.findByIdAndDelete(postId);
+		const currentUser = await User.findById(userId);
+		const postIndex = currentUser.posts.indexOf(postId);
+		currentUser.posts.splice(postIndex, 1);
+		currentUser.save();
+		req.session.currentUser = currentUser;
 		res.status(200).json(deletedPost);
 	} catch (error) {
 		console.log(error, 'error occurred when deleting post');
 	}
 });
-
 
 module.exports = router;
