@@ -45,7 +45,7 @@ async function setupApp() {
 
 	app.use('/', authRouter);
 	app.use('/', postRouter);
-	app.use('/',notesRouter);
+	app.use('/', notesRouter);
 	app.use('/protected', demoRouter);
 
 	// catch 404 and forward to error handler
