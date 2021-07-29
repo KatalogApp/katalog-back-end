@@ -6,6 +6,31 @@ const Note = require('../models/Note');
 const router = new Router();
 
 
+// GET NOTES
+router.get('/user-profile/notes', async (req, res) => {
+	// eslint-disable-next-line no-underscore-dangle
+	const userId = req.session.currentUser._id;
+	if (!req.session.currentUser) {
+		res.status(401).json({ status: 'No user logged in' });
+	}
+	const user = await User.findById(userId).populate('notes');
+	res.status(200).json(user);
+});
+
+// GET SINGLE NOTE
+router.get('/user-profile/notes/:id', async (req, res) => {
+	// eslint-disable-next-line no-underscore-dangle
+	const noteId = req.params.id;
+	const note = await Note.findById(noteId);
+	if (!note) {
+		res.status(404).json({ status: 'No post found' });
+	}
+	res.status(200).json(note);
+});
+
+
+
+
 // Create New Note
 
 router.post('/user-profile/note/create', async (req, res) => {
