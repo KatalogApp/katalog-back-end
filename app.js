@@ -24,24 +24,26 @@ async function setupApp() {
 		})
 	);
 	app.use(logger('dev'));
-	app.use(express.json());
-	app.use(express.urlencoded({ extended: false }));
-	app.use(cookieParser());
-	app.use(express.static(path.join(__dirname, 'public')));
-	app.use(
-		session({
-			store: MongoStore.create({
-				mongoUrl: process.env.MONGODB_URI,
-				ttl: 24 * 60 * 60,
-			}),
-			secret: process.env.SECRET_SESSION, // should be inside .env
-			resave: true,
-			saveUninitialized: true,
-			cookie: {
-				maxAge: 24 * 60 * 60 * 1000,
-			},
-		})
-	);
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(express.static(path.join(__dirname, 'public')));
+app.set('trust proxy', 1); // --> add this line 
+app.use(
+	session({
+		store: MongoStore.create({
+			mongoUrl: process.env.MONGODB_URI,
+			ttl: 24 * 60 * 60,
+		}),
+		secret: process.env.SECRET_SESSION,
+		resave: true,
+		saveUninitialized: true,
+		cookie: {
+			maxAge: 24 * 60 * 60 * 1000,
+			sameSite: process.env.COOKIES_SAMESITE === 'true' ? 'lax' : 'none', // --> add this line
+			secure: process.env.COOKIES_SAMESITE !== 'true', // --> add this line
+		},
+	})
+);
 
 	app.use('/', authRouter);
 	app.use('/', postRouter);
