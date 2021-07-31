@@ -1,15 +1,13 @@
 /* eslint-disable no-console */
-// const mongoose = require('mongoose');
+
 const { Router } = require('express');
 const Post = require('../models/Post');
 const User = require('../models/User');
-// const Note = require('../models/Note.js');
+
 const router = new Router();
-// const bcryptjs = require('bcryptjs');
-// const saltRounds = 10;
-// const salt = bcryptjs.genSaltSync(saltRounds);
+
 // eslint-disable-next-line import/no-unresolved
-// const fileUploader = require('../configs/cloudinary.config');
+const fileUploader = require('../configs/cloudinary.config');
 
 // GET POSTS
 router.get('/user-profile/posts', async (req, res) => {
@@ -34,13 +32,15 @@ router.get('/user-profile/posts/:id', async (req, res) => {
 });
 
 // CREATE NEW POST
-router.post('/user-profile/post/create', async (req, res) => {
-	// router.post('/user-profile/create', fileUploader.single('image'), async (req, res) => {
-	const { title, description, keywords, theme } = req.body;
+// router.post('/user-profile/post/create', async (req, res) => {
+	router.post('/user-profile/post/create', fileUploader.single('image'), async (req, res) => {
+		const { title, description, keywords, theme } = req.body;
+		const file = req.file.path;
 	// eslint-disable-next-line no-underscore-dangle
 	const userId = req.session.currentUser._id;
+	// const file = req.file.path;
 	try {
-		const newPost = await Post.create({ userId, title, description, keywords, theme, creator: userId });
+		const newPost = await Post.create({ userId, title, description, keywords, theme, imageUrl: file, creator: userId });
 		const currentUser = await User.findById(userId);
 		// eslint-disable-next-line no-underscore-dangle
 		currentUser.posts.push(newPost._id);
@@ -48,6 +48,7 @@ router.post('/user-profile/post/create', async (req, res) => {
 	} catch (error) {
 		console.log(error);
 	} finally {
+		console.log("post created")
 		const updatedUser = await User.findById(userId).populate({ path: 'posts', model: Post });
 		req.session.currentUser = updatedUser;
 		res.status(201).json({ user: updatedUser });

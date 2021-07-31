@@ -2,6 +2,7 @@ const express = require('express');
 const bcrypt = require('bcrypt');
 const createError = require('http-errors');
 
+
 const { checknameAndPasswordNotEmpty } = require('../middlewares');
 
 const User = require('../models/User');
