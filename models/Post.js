@@ -34,6 +34,7 @@ const postSchema = new Schema({
 	},
 	imageUrl: {
 		type: String,
+		required: true
 	},
 });
 

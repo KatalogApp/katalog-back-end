@@ -49,6 +49,7 @@ app.use(
 	app.use('/', postRouter);
 	app.use('/', notesRouter);
 	app.use('/protected', demoRouter);
+	app.use('/api', require('./routes/file-upload.routes'));
 
 	// catch 404 and forward to error handler
 	app.use((req, res, next) => {

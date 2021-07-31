@@ -7,7 +7,7 @@ const User = require('../models/User');
 const router = new Router();
 
 // eslint-disable-next-line import/no-unresolved
-const fileUploader = require('../configs/cloudinary.config');
+// const fileUploader = require('../configs/cloudinary.config');
 
 // GET POSTS
 router.get('/user-profile/posts', async (req, res) => {
@@ -32,15 +32,15 @@ router.get('/user-profile/posts/:id', async (req, res) => {
 });
 
 // CREATE NEW POST
-// router.post('/user-profile/post/create', async (req, res) => {
-	router.post('/user-profile/post/create', fileUploader.single('image'), async (req, res) => {
-		const { title, description, keywords, theme } = req.body;
-		const file = req.file.path;
+router.post('/user-profile/post/create', async (req, res) => {
+	// router.post('/user-profile/post/create', fileUploader.single('image'), async (req, res) => {
+		const { title, description, keywords, theme, imageUrl } = req.body;
+		// const file = req.file.path;
 	// eslint-disable-next-line no-underscore-dangle
 	const userId = req.session.currentUser._id;
 	// const file = req.file.path;
 	try {
-		const newPost = await Post.create({ userId, title, description, keywords, theme, imageUrl: file, creator: userId });
+		const newPost = await Post.create({ userId, title, description, keywords, theme, imageUrl, creator: userId });
 		const currentUser = await User.findById(userId);
 		// eslint-disable-next-line no-underscore-dangle
 		currentUser.posts.push(newPost._id);
