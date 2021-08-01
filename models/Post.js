@@ -10,7 +10,7 @@ const postSchema = new Schema({
 	title: {
 		type: String,
 		trim: true,
-		required: [true, 'title is required'],
+	  required: [true, 'title is required'],
 	},
 	date: {
 		type: Date,
@@ -26,7 +26,7 @@ const postSchema = new Schema({
 	},
 	theme: {
 		type: String,
-		required: [true, 'theme is required'],
+	  required: [true, 'theme is required'],
 	},
 	creator: {
 		type: String,
