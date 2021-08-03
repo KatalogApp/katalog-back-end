@@ -44,6 +44,8 @@ app.use(
 		},
 	})
 );
+
+
 	app.use('/api', require('./routes/file-upload.routes'));
 	app.use('/', authRouter);
 	app.use('/', postRouter);
