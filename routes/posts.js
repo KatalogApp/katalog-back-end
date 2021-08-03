@@ -57,7 +57,7 @@ router.post('/user-profile/post/create', async (req, res) => {
 
 // POST update post
 
-router.post('/user-profile/post/:id/edit', async (req, res) => {
+router.post('/user-profile/:id/edit', async (req, res) => {
 	// const postId = req.session.currentUser.posts._id;
 	const postId = req.params.id;
 	const { title, date, description, keywords, theme, creator } = req.body;
