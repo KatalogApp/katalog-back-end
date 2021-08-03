@@ -34,7 +34,8 @@ router.get('/user-profile/posts/:id', async (req, res) => {
 // CREATE NEW POST
 router.post('/user-profile/post/create', async (req, res) => {
 	// router.post('/user-profile/post/create', fileUploader.single('image'), async (req, res) => {
-		const { title, description, keywords, theme, imageUrl } = req.body;
+		const { title, description, keywords, theme , imageUrl} = req.body;
+	
 		// const file = req.file.path;
 	// eslint-disable-next-line no-underscore-dangle
 	const userId = req.session.currentUser._id;
