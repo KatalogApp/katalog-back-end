@@ -33,13 +33,9 @@ router.get('/user-profile/posts/:id', async (req, res) => {
 
 // CREATE NEW POST
 router.post('/user-profile/post/create', async (req, res) => {
-	// router.post('/user-profile/post/create', fileUploader.single('image'), async (req, res) => {
-		const { title, description, keywords, theme , imageUrl} = req.body;
-	
-		// const file = req.file.path;
+	const { title, description, keywords, theme, imageUrl } = req.body;
 	// eslint-disable-next-line no-underscore-dangle
 	const userId = req.session.currentUser._id;
-	// const file = req.file.path;
 	try {
 		const newPost = await Post.create({ userId, title, description, keywords, theme, imageUrl, creator: userId });
 		const currentUser = await User.findById(userId);
@@ -49,7 +45,7 @@ router.post('/user-profile/post/create', async (req, res) => {
 	} catch (error) {
 		console.log(error);
 	} finally {
-		console.log("post created")
+		console.log('post created');
 		const updatedUser = await User.findById(userId).populate({ path: 'posts', model: Post });
 		req.session.currentUser = updatedUser;
 		res.status(201).json({ user: updatedUser });
@@ -61,13 +57,9 @@ router.post('/user-profile/post/create', async (req, res) => {
 router.post('/user-profile/:id/edit', async (req, res) => {
 	// const postId = req.session.currentUser.posts._id;
 	const postId = req.params.id;
-	const { title, date, description, keywords, theme, creator } = req.body;
+	const { title, description, keywords, theme } = req.body;
 	try {
-		const newPost = await Post.findByIdAndUpdate(
-			postId,
-			{ title, date, description, keywords, theme, creator },
-			{ new: true }
-		);
+		const newPost = await Post.findByIdAndUpdate(postId, { title, description, keywords, theme }, { new: true });
 		if (!newPost) {
 			console.log('No post created');
 		}
@@ -96,4 +88,3 @@ router.delete('/user-profile/post/:id/delete', async (req, res) => {
 });
 
 module.exports = router;
-
