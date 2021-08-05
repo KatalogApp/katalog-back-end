@@ -1,3 +1,4 @@
+# README
 # Project's name: Katalog
 ​
 ​
@@ -6,10 +7,7 @@
 Katalog is for the everyday artist that wants to organize their inspirations, whether this is a photo, a quote, or a link to another website. Each inspiration will be a post and the user can create, update, or delete a post. In a sense, the application is a content management system for the everyday kind of artist.
 ​
 ## USER STORIES (MVP)
-​
-**404** - As a user I want to see a nice 404 page when I go to a page that doesn’t exist so that I know it was my fault. The user is offered a link to return to the main page. 
-​
-**500** - As a user I want to see a nice error message when our development messes up so that I know that is not my fault. A redirection link is offered to return to the main page. 
+
 ​
 **Landing page** - As a user, without session, I would like to see a public landing page with a carousel of generic "posts" created by other users to encourage them to sign up. The sign up and login will be available on this page as well. 
 ​
@@ -75,8 +73,8 @@ pages rather than a general redirection to home page. The posts will be a GET re
 | Update Post         | POST   | /[PostId]/edit                       | User can edit the name and theme of a post                                  | { name, theme, photo, date }                      |            |
 | Delete Post   | POST    | /[PostId]/edit                           | User can delete a post                       |                                       |  |
 |**Note CRUD**           |     |                            | |                                       |                 |
-| Create Note    | GET   | /create_note                        | User creates a post and is redirected to homepage                          | { content,articles, date }                                   |              |
-| Update Note         | POST   |/[NoteId]/edit                       | User can edit the content of a note and its related posts                    |    { content, articles, date }        |
+| Create Note    | GET   | /create_note                        | User creates a post and is redirected to homepage                          | { content, date }                                   |              |
+| Update Note         | POST   |/[NoteId]/edit                       | User can edit the content of a note and its related posts                    |    { content, date }        |
 | Delete Note   | POST    | /[NoteId]/edit                             | User can delete a note                      |                               { content, articles, date }        |  |
 ​
 ​
@@ -110,7 +108,7 @@ Note model
 {
     date: date,
    contet: string,
-   posts: [type: Schema.Types.ObjectId]
+   
 }
 ```
 ​
@@ -118,12 +116,11 @@ Note model
 ​
 ### Github project
 ​
-- [Frontend project]()
-- [Backend project]()
+-https://github.com/KatalogApp/katalog-front-end
+
+-https://github.com/KatalogApp/katalog-back-end
 ​
 ### Deploy links
-​
-- [Frontend deploy]()
 ​
 ### Project kanban
 - [Github projects]()
@@ -134,4 +131,4 @@ Note model
 ​
 ### Slides
 ​
-- [Slides]()
+- https://slides.com/lindavilla/deck/fullscreen
